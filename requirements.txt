@@ -1,0 +1,9 @@
+torch
+torchvision
+matplotlib
+opencv-python
+numpy
+attrdict
+IPython
+pandas
+pyyaml
