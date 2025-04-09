@@ -15,7 +15,7 @@
 </div>
 
 ## 🧭 Overview
-![teaser](assets/main_fig.svg)
+![teaser](assets/main_fig.png)
 THUD++ comprises three primary components: an RGB-D dataset, a pedestrian trajectory dataset, and a robot navigation emulator. By sharing this dataset, we aim to accelerate the development and testing of mobile robot algorithms,contributing to real-world robotic applications.
 
 ## 📃 Usage
