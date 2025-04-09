@@ -25,7 +25,7 @@ Please refer to [THUD_Dataset_Overview](https://github.com/jackyzengl/THUD_Datas
 ### 2. Pedestrian Trajactory Prediction
 #### Prepraration
 ```bash
-git clone https://github.com/jackyzengl/THUD++.git
+git clone https://github.com/jackyzengl/THUD-plus-plus.git
 conda create -n thud++ python=3.8
 conda activate thud++
 pip install -r requirements.txt
