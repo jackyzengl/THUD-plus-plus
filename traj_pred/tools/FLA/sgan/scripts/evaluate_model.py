@@ -6,7 +6,7 @@ import sys
 
 from attrdict import AttrDict
 
-sys.path.append('/data/lfh/THUDv2/tools/FLA/sgan')
+sys.path.append('../../sgan')
 from sgan.data.loader import data_loader
 from sgan.models import TrajectoryGenerator
 from sgan.losses import displacement_error, final_displacement_error
@@ -109,7 +109,7 @@ def main(args):
         checkpoint = torch.load(path)
         generator = get_generator(checkpoint)
         _args = AttrDict(checkpoint['args'])
-        path = f'/data/lfh/THUDv2/datasets/{args.dataset_name}/test_office'
+        path = f'../../../../datasets/{args.dataset_name}/test_office'
         _, loader = data_loader(_args, path)
         ade, fde = evaluate(_args, loader, generator, args.num_samples)
         print('Dataset: {}, Pred Len: {}, ADE: {:.2f}, FDE: {:.2f}'.format(
