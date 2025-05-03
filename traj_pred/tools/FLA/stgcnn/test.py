@@ -79,8 +79,6 @@ def test(KSTEPS=20):
         mean = V_pred[:,:,0:2]
 
         mvnormal = torchdist.MultivariateNormal(mean,cov)
-        # TODO: 查一查MultivariateNormal
-
 
         ### Rel to abs
         ##obs_traj.shape = torch.Size([1, 6, 2, 8]) Batch, Ped ID, x|y, Seq Len 
@@ -108,8 +106,6 @@ def test(KSTEPS=20):
         for k in range(KSTEPS):  # k次预测采样
 
             V_pred = mvnormal.sample()
-
-
 
             #V_pred = seq_to_nodes(pred_traj_gt.data.numpy().copy())
             V_pred_rel_to_abs = nodes_rel_to_nodes_abs(V_pred.data.cpu().numpy().squeeze().copy(),
@@ -143,7 +139,7 @@ paths = ['./checkpoint/*']
 KSTEPS=20
 
 print("*"*50)
-print('Number of samples:',KSTEPS)
+print('Number of samples:', KSTEPS)
 print("*"*50)
 
 
@@ -160,12 +156,12 @@ for feta in range(len(paths)):
         print("*"*50)
         print("Evaluating model:",exp_path)
 
-        model_path = exp_path+'/val_best.pth'
-        args_path = exp_path+'/args.pkl'
+        model_path = exp_path + '/val_best.pth'
+        args_path = exp_path + '/args.pkl'
         with open(args_path,'rb') as f:
             args = pickle.load(f)  # train的时候把argparse保存成pkl文件了！
 
-        stats= exp_path+'/constant_metrics.pkl'
+        stats= exp_path + '/constant_metrics.pkl'
         with open(stats,'rb') as f:
             cm = pickle.load(f)  # cm= "{'min_val_epoch': 234, 'min_val_loss': -0.014858260246866567}"
         # print("Stats:",cm)
@@ -175,8 +171,11 @@ for feta in range(len(paths)):
         #Data prep
         obs_seq_len = args.obs_seq_len
         pred_seq_len = args.pred_seq_len
-        data_set = '/data/lfh/THUDv2/datasets/'+args.dataset+'/'
-
+        data_set = '../../../datasets/' + args.dataset + '/'
+        abs_dataset_path = os.path.abspath(data_set)
+        print('rel_dataset_path:', data_set)
+        print('abs_dataset_path:', abs_dataset_path, '\n')
+        
         dset_test = TrajectoryDataset(
                 data_set+'test_office/',
                 obs_len=obs_seq_len,
@@ -189,24 +188,21 @@ for feta in range(len(paths)):
                 shuffle =False,
                 num_workers=1)
 
-
-
         #Defining the model
         model = social_stgcnn(n_stgcnn =args.n_stgcnn,n_txpcnn=args.n_txpcnn,
         output_feat=args.output_size,seq_len=args.obs_seq_len,
         kernel_size=args.kernel_size,pred_seq_len=args.pred_seq_len).cuda()
         model.load_state_dict(torch.load(model_path))
 
-
         ade_ =999999
         fde_ =999999
         print("Testing ....")
-        ad,fd,raw_data_dic_= test()
-        ade_= min(ade_,ad)
-        fde_ =min(fde_,fd)
+        ad,fd, raw_data_dic_ = test()
+        ade_ = min(ade_,ad)
+        fde_ = min(fde_,fd)
         ade_ls.append(ade_)
         fde_ls.append(fde_)
-        print("ADE:",ade_," FDE:",fde_)
+        print("ADE:", ade_, " FDE:", fde_)
 
     print("*"*50)
     print(f'use time: {time.time() - start_time}')
