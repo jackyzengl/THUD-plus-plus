@@ -7,3 +7,5 @@ attrdict
 IPython
 pandas
 pyyaml
+tqdm
+scipy
