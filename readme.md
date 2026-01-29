@@ -32,7 +32,7 @@ pip install -r requirements.txt
 ```
 
 #### Dataset Structure
-The construction of the dataset is the same as that of ETH/UCY. Each row in the data set is recorded according to frameID, pedID, x, y. The data of each scene is named after the scene and world coordinate system range.
+The construction of the dataset is the same as that of ETH/UCY. Each row in the data set is recorded according to frameID, pedID, x, y. The data of each scene is is named according to the scene and the corresponding world coordinate system range.
 ```
 Dataset
 ├── eth
