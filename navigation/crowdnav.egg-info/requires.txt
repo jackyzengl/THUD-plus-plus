@@ -1,0 +1,14 @@
+gitpython
+gym
+matplotlib
+numpy
+scipy
+torch
+torchvision
+seaborn
+tqdm
+tensorboardX
+
+[test]
+pylint
+pytest

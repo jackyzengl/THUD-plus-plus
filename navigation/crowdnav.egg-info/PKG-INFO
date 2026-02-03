@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: crowdnav
+Version: 0.0.1
+Requires-Dist: gitpython
+Requires-Dist: gym
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: torch
+Requires-Dist: torchvision
+Requires-Dist: seaborn
+Requires-Dist: tqdm
+Requires-Dist: tensorboardX
+Provides-Extra: test
+Requires-Dist: pylint; extra == "test"
+Requires-Dist: pytest; extra == "test"
