@@ -60,7 +60,53 @@ cd traj_pred/tools/FLA/stgcnn && python test.py
 
 ### 3. Navigation Emulator
 ![teaser](assets/emulator_overview.png)
-The code of our Emulator is coming soon.
+
+How to use the emulator
+
+1. Install [Unity](https://unity.com/download) (recommended version ≥ 2022.3.42f1).
+2. Download the emulator Unity project from [Google Drive](https://drive.google.com/file/d/1U85FgQ7M-fGek7VBAXhCvFdR8XbWh1eR/view?usp=drive_link) and open it in Unity.
+3. Construct customized indoor scenes according to your experimental requirements (rooms, obstacles, pedestrians, robots, etc.).
+4. Configure the number of dynamic pedestrians and robots in the scene, and bind the robot controller to communicate with your navigation algorithm via TCP (see below).
+
+How to integrate navigation algorithms
+#### Preparation
+```bash
+cd navigation
+conda env create -f environment.yml
+cd Python-RVO2
+python setup.py build
+python setup.py install
+```
+
+#### Example
+We use ORCA as an example to illustrate how the navigation algorithm communicates with Unity.
+
+1. In Python, the script `navigation/tcp_server.py` starts a TCP server (default `HOST=0.0.0.0`, `PORT=11311`) and loads the ORCA policy:
+   - Unity sends the robot state and pedestrian states at each simulation step.
+   - The server computes the robot velocity and sends back `(vx, vy)` to Unity.
+
+2. Run the TCP server:
+```bash
+cd navigation
+python tcp_server.py
+```
+
+3. (Optional) If the navigation algorithm and Unity run on different machines, you can set up SSH port forwarding so that Unity can access the remote Python server. For example:
+```bash
+ssh -L 11311:localhost:11311 root@<remote_ip> -p <ssh_port>
+```
+
+4. In Unity, modify the IP address and port in `Emulator_UnityProject/Assets/Scripts/Robot/RobotManager.cs` so that they match the settings in `tcp_server.py`.  
+   The data format sent from Unity to Python is:
+```text
+robot_pos_x,robot_pos_y & robot_vel_x,robot_vel_y & robot_target_x,robot_target_y &
+people1_pos_x,people1_pos_y & people1_vel_x,people1_vel_y & people2_pos_x,people2_pos_y & people2_vel_x,people2_vel_y & ...
+```
+
+5. In Unity, select the scene to be tested, open the "ROS" tab in the menu, and click "Start Connection" to start communication with the navigation algorithm. Press the Tab key to show or hide the control menu.
+
+By modifying the policy in `tcp_server.py` (e.g., replacing ORCA with other policies or RL models), you can plug in and evaluate different navigation algorithms in the same emulator.
+
 
 ## 🖊 Citation
 
