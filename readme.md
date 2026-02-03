@@ -61,14 +61,14 @@ cd traj_pred/tools/FLA/stgcnn && python test.py
 ### 3. Navigation Emulator
 ![teaser](assets/emulator_overview.png)
 
-How to use the emulator
+#### How to use the emulator
 
 1. Install [Unity](https://unity.com/download) (recommended version ≥ 2022.3.42f1).
 2. Download the emulator Unity project from [Google Drive](https://drive.google.com/file/d/1U85FgQ7M-fGek7VBAXhCvFdR8XbWh1eR/view?usp=drive_link) and open it in Unity.
 3. Construct customized indoor scenes according to your experimental requirements (rooms, obstacles, pedestrians, robots, etc.).
 4. Configure the number of dynamic pedestrians and robots in the scene, and bind the robot controller to communicate with your navigation algorithm via TCP (see below).
 
-How to integrate navigation algorithms
+#### How to integrate navigation algorithms
 #### Preparation
 ```bash
 cd navigation
