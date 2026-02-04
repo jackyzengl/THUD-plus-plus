@@ -120,6 +120,13 @@ If you find this project useful, please consider citing:
   year={2024}
 }
 
+@article{zhengdemonstrating,
+  title={Demonstrating DVS: Dynamic Virtual-Real Simulation Platform for Mobile Robotic Tasks},
+  author={Zheng, Zijie and Li, Zeshun and Wang, Yunpeng and Xie, Qinghongbing and Zeng, Long}
+  booktitle={Robotics: Science and Systems}
+  year={2025}
+}
+
 @inproceedings{tang2024mobile,
   title={Mobile robot oriented large-scale indoor dataset for dynamic scene understanding},
   author={Tang, Yi-Fan and Tai, Cong and Chen, Fang-Xing and Zhang, Wan-Ting and Zhang, Tao and Liu, Xue-Ping and Liu, Yong-Jin and Zeng, Long},
