@@ -4,18 +4,21 @@ import importlib.util
 import os
 import torch
 import sys
+
+
+root_dir = os.path.dirname(os.path.abspath(__file__))
+if root_dir not in sys.path:
+    sys.path.insert(0, root_dir)
+
 from crowd_nav.policy.policy_factory import policy_factory
 from crowd_sim.envs.utils.state import FullState, ObservableState, JointState
-
-root_dir = '/root/navigation/RGL'  # Root directory of the RGL package
-sys.path.append(root_dir)
 
 def receive_data(sock):
     """Receive robot and pedestrian state data sent from the server."""
     data = sock.recv(1024).decode('utf-8')
     return data.split('&')  # Split by '&'
 
-def send_data(sock, vx, vy):\
+def send_data(sock, vx, vy):
     """Send the robot's computed velocity."""
     msg = f"{vx}, {vy}"
     sock.sendall(msg.encode('utf-8'))
@@ -119,7 +122,7 @@ if __name__ == '__main__':
     safety_space = 0.2
 
     # Configure environment (usually no need to change)
-    model_dir = root_dir + '/crowd_nav/data/output'
+    model_dir = os.path.join(root_dir, 'crowd_nav', 'data', 'output')
     device = torch.device(f"cuda:{gpu}" if torch.cuda.is_available() and gpu else "cpu")
     config_file = os.path.join(model_dir, 'config.py')
     model_weights = os.path.join(model_dir, 'best_val.pth')
